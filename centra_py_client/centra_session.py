@@ -89,6 +89,7 @@ class CentraSession:
         if 'access_token' in response:
             token = response['access_token']
             self.set_token(token)
+        # todo raise exception when auth fails
         self.logger.debug("REST token obtained and set")
 
     def json_query(
