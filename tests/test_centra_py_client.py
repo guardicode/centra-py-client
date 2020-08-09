@@ -56,4 +56,3 @@ class TestClient(TestCase):
             Contains(f'assets/labels/{fake_key}/{fake_value}'),
             method="POST",
             data={"vms": [fake_asset_id, fake_asset_2_id]})
-
