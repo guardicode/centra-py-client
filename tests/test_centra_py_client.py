@@ -8,7 +8,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 from callee import Contains
 
-from centra_py_client.centra_py_client import Client
+from centra_py_client.centra_py_client import CentraClient
 from centra_py_client.centra_session import CentraSession
 
 
@@ -22,7 +22,7 @@ class TestClient(TestCase):
         mock_json_query.return_value = {
             "objects": [fake_asset, fake_asset_2]
         }
-        client = Client(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
 
         # act
         returned_assets = client.list_assets()
@@ -46,7 +46,7 @@ class TestClient(TestCase):
             "value": fake_value,
             "name": f"{fake_key}: {fake_value}"
         }
-        client = Client(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
 
         # act
         response = client.add_label_to_assets([fake_asset_id, fake_asset_2_id], fake_key, fake_value)

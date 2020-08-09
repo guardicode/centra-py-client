@@ -6,7 +6,7 @@ __version__ = '0.1.0'
 
 import logging
 
-from .centra_py_client import Client as Client
+from .centra_py_client import CentraClient as CentraClient
 from .centra_py_client import CentraSession as CentraSession
 
 
