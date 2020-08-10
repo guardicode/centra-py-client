@@ -7,7 +7,7 @@ from centra_py_client.centra_session import CentraSession
 
 class CentraClient:
     def __init__(self, centra_session: CentraSession):
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(self.__class__.__name__)
         self.centra_session = centra_session
 
     def list_assets(self, **filt):
