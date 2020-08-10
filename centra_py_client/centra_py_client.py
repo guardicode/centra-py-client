@@ -22,17 +22,19 @@ class CentraClient:
                                               method='POST', data={"vms": asset_ids})
 
     def delete_label_by_name(self, label_name: str):
-        key, value = label_name.split(": ")
-        self.delete_label_by_key_value(key, value)
+        """
+        Delete a label by its name.
+        :param label_name: The label name as a string, e.g. "App: Accounting" or "Environment: Production"
+        """
+        key, value = label_name.split(":")
+        self.delete_label_by_key_value(key.strip(), value.strip())
 
     def delete_label_by_key_value(self, label_key, label_value):
         """
         Delete a label.
-        :param label_value: TODO
-        :param label_key: TODO
-        :return:
+        :param label_key: The label key, e.g. "Environment"
+        :param label_value: The label value, e.g. "Production"
         """
-        # first, get label ID
         label_ids = self.get_labels_ids(label_key, label_value)
         for label_id in label_ids:
             self.logger.debug(f"Trying to delete {label_id}")
@@ -60,5 +62,6 @@ class CentraClient:
             method='GET',
             params=params
         )['objects']
-        list_of_matching_labels = [x['id'] for x in list_of_matching_label_objects]
-        return list_of_matching_labels
+        list_of_matching_label_ids = [x['id'] for x in list_of_matching_label_objects]
+        self.logger.debug(f"Found {len(list_of_matching_label_ids)} matching labels")
+        return list_of_matching_label_ids
