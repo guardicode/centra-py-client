@@ -5,7 +5,7 @@ import pytest
 import uuid
 
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, call
 from callee import Contains
 
 from centra_py_client.centra_py_client import CentraClient
@@ -56,3 +56,49 @@ class TestClient(TestCase):
             Contains(f'assets/labels/{fake_key}/{fake_value}'),
             method="POST",
             data={"vms": [fake_asset_id, fake_asset_2_id]})
+
+    @patch("centra_py_client.centra_py_client.CentraSession.connect")
+    @patch("centra_py_client.centra_py_client.CentraSession.json_query")
+    def test_get_labels_ids(self, mock_json_query, _):
+        id1 = uuid.uuid4()
+        id2 = uuid.uuid4()
+        mock_json_query.return_value = {
+            'objects': [
+                {"id": id1},
+                {"id": id2},
+            ]
+        }
+
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        key = "a_key"
+        value = "a_value"
+        label_ids = client.get_labels_ids(key, value)
+
+        assert set(label_ids) == {id1, id2}
+        mock_json_query.assert_called_once_with(
+            Contains("visibility/labels"),
+            method="GET",
+            params={"key": key, "value": value}
+        )
+
+    @patch("centra_py_client.centra_py_client.CentraSession.connect")
+    @patch("centra_py_client.centra_py_client.CentraClient.get_labels_ids")
+    @patch("centra_py_client.centra_py_client.CentraSession.json_query")
+    def test_delete_label_by_key_value(self, mock_json_query, mock_get_label_ids, _):
+        first_id = "first_id"
+        second_id = "second_id"
+        mock_get_label_ids.return_value = [first_id, second_id]
+        mock_json_query.side_effect = lambda x, method: x.split("/")[-1]
+
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        key = "a_key"
+        value = "a_value"
+        client.delete_label_by_key_value(key, value)
+
+        mock_json_query.assert_has_calls(
+            calls=[
+                call(Contains(first_id), method="DELETE"),
+                call(Contains(second_id), method="DELETE")
+            ],
+            any_order=True
+        )
