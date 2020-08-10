@@ -23,6 +23,34 @@ Python client for Centra API access.
 * Documentation: https://centra-py-client.readthedocs.io.
 
 
+Quick start
+-----------
+
+Installation
+^^^^^^^^^^^^
+
+From Pypi::
+
+    pip install centra_py_client
+
+From source::
+
+    git clone <GIT_URL_HERE>
+    cd centra_py_client
+    python setup.py install
+
+Usage
+^^^^^^^^^^^^
+
+First, create a CentraClient::
+
+    from centra_py_client import CentraClient, CentraSession
+    client = CentraClient(CentraSession("my.centra.address", "username", "password"))
+
+Then use the client to interact with Centra, e.g.::
+
+    client.delete_label_by_name("Environemnt: TemporaryEnv")
+
 Features
 --------
 
