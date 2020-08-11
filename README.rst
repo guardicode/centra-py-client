@@ -16,45 +16,17 @@ centra-py-client
 
 
 
-Python client for Centra API access.
+Python client for Centra API access. Visit Guardicore_'s website for more information about Centra!
 
-
-* Free software: GNU General Public License v3
-* Documentation: https://centra-py-client.readthedocs.io.
+Find the full client documentation at https://centra-py-client.readthedocs.io (locally, `/docs` folder).
 
 
 Quick start
 -----------
 
-Installation
-^^^^^^^^^^^^
+.. include:: docs/installation.rst
 
-From Pypi::
-
-    pip install centra_py_client
-
-From source::
-
-    git clone <GIT_URL_HERE>
-    cd centra_py_client
-    python setup.py install
-
-Usage
-^^^^^^^^^^^^
-
-First, create a CentraClient::
-
-    from centra_py_client import CentraClient, CentraSession
-    client = CentraClient(CentraSession("my.centra.address", "username", "password"))
-
-Then use the client to interact with Centra, e.g.::
-
-    client.delete_label_by_name("Environemnt: TemporaryEnv")
-
-Features
---------
-
-* TODO
+.. include:: docs/usage.rst
 
 Credits
 -------
@@ -63,3 +35,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _Guardicore: https://guardicore.com
