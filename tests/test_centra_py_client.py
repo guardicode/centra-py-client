@@ -88,7 +88,9 @@ class TestClient(TestCase):
         first_id = "first_id"
         second_id = "second_id"
         mock_get_label_ids.return_value = [first_id, second_id]
-        mock_json_query.side_effect = lambda x, method: x.split("/")[-1]
+        # This makes the call to json_query return the last part of the uri which is the label ID.
+        # That's what the actual delete_label API returns.
+        mock_json_query.side_effect = lambda uri, method: uri.split("/")[-1]
 
         client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
         key = "a_key"

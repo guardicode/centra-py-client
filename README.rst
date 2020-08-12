@@ -20,9 +20,9 @@ Python client for Centra API access. Visit Guardicore_'s website for more inform
 
 Find the full client documentation at https://centra-py-client.readthedocs.io (locally, `/docs` folder).
 
-
-Quick start
------------
+======================
+Quick start guide
+======================
 
 .. include:: docs/installation.rst
 
