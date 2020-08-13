@@ -28,6 +28,15 @@ Quick start guide
 
 .. include:: docs/usage.rst
 
+======================
+Stability status
+======================
+
+This package is currently considered unstable and there is no backward compatibility guaranteed.
+
+This status will continue as long as the package is in the 0.x.y versions. When the package
+stabilizes and we can guarantee backward comparability, version 1.0.0 will be released.
+
 Credits
 -------
 
