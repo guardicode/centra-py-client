@@ -2,6 +2,12 @@
 Usage
 =====
 
-To use centra-py-client in a project::
+First, create a CentraClient::
 
-    import centra_py_client
+    from centra_py_client import CentraClient, CentraSession
+    client = CentraClient(CentraSession("my.centra.address", "username", "password"))
+
+Then use the client to interact with Centra, e.g.::
+
+    client.delete_label_by_name("Environemnt: TemporaryEnv")
+

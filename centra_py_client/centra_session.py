@@ -44,14 +44,15 @@ class CentraSession:
         management_address: str,
         auth_username: str,
         auth_password: str,
-        base_api_path=REST_API_BASE_PATH_V3):
+        base_api_path=REST_API_BASE_PATH_V3
+    ):
         """
         Todo
         :param management_address:
         :param auth_username:
         :param auth_password:
         """
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(self.__class__.__name__)
         self.management_address = management_address
         self.auth_username = auth_username
         self.auth_password = auth_password
@@ -67,6 +68,7 @@ class CentraSession:
         self.set_base_api_path(base_api_path)
 
         self.connect()
+        self.logger.debug(f"Connected to Centra successfully on {self.management_address}.")
 
     def set_base_api_path(self, base_api_path):
         # TODO import validators and validate the path

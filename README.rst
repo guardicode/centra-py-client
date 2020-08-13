@@ -16,17 +16,17 @@ centra-py-client
 
 
 
-Python client for Centra API access.
+Python client for Centra API access. Visit Guardicore_'s website for more information about Centra!
 
+Find the full client documentation at https://centra-py-client.readthedocs.io (locally, `/docs` folder).
 
-* Free software: GNU General Public License v3
-* Documentation: https://centra-py-client.readthedocs.io.
+======================
+Quick start guide
+======================
 
+.. include:: docs/installation.rst
 
-Features
---------
-
-* TODO
+.. include:: docs/usage.rst
 
 Credits
 -------
@@ -35,3 +35,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _Guardicore: https://guardicore.com
