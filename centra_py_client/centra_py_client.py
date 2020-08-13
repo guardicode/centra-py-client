@@ -2,6 +2,9 @@
 
 import logging
 
+from typing import List
+
+
 from centra_py_client.centra_session import CentraSession
 
 
@@ -13,13 +16,20 @@ class CentraClient:
     def list_assets(self, **filt):
         return self.centra_session.json_query(self.centra_session.urljoin_api('assets'), params=filt)['objects']
 
-    def add_label_to_assets(self, asset_ids, label_key, label_value):
+    def add_label_to_assets(self, asset_ids: List[str], label_key: str, label_value: str) -> str:
         """
-        This was once add_visibility_label
+        Add a label to assets.
+        Note - If the assets are already labeled with a label that has the provided label_key, they will be
+        automatically removed from their current label and added to the new provided label.
+        :param asset_ids: A list of asset ids to add the label to
+        :param label_key: The label key, e.g. "Environment"
+        :param label_value: The label key, e.g. "Production"
+        :return: The id of the label with the provided label_key and label_value
         """
         endpoint = f'assets/labels/{label_key}/{label_value}'
-        return self.centra_session.json_query(self.centra_session.urljoin_api(endpoint),
-                                              method='POST', data={"vms": asset_ids})
+        label_summary_object = self.centra_session.json_query(self.centra_session.urljoin_api(endpoint),
+                                                              method='POST', data={"vms": asset_ids})
+        return label_summary_object['id']
 
     def delete_label_by_name(self, label_name: str):
         """
