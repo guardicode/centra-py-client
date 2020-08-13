@@ -44,7 +44,8 @@ class CentraSession:
         management_address: str,
         auth_username: str,
         auth_password: str,
-        base_api_path=REST_API_BASE_PATH_V3
+        base_api_path=REST_API_BASE_PATH_V3,
+        verify_certificate: bool = True
     ):
         """
         Todo
@@ -59,7 +60,7 @@ class CentraSession:
 
         self.http_server_root = f"https://{management_address}"
         self._requests_session = requests.Session()
-        self._requests_session.verify = False
+        self._requests_session.verify = verify_certificate
 
         self.json_encoder = DatetimeEncoder()
         self.rest_auth_enabled = True
