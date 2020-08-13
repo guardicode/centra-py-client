@@ -5,8 +5,8 @@ Installation
 ============
 
 
-Stable release
---------------
+Released version
+----------------
 
 To install centra-py-client, run this command in your terminal:
 
@@ -14,7 +14,7 @@ To install centra-py-client, run this command in your terminal:
 
     $ pip install centra_py_client
 
-This is the preferred method to install centra-py-client, as it will always install the most recent stable release.
+This is the preferred method to install centra-py-client, as it will always install the most recent released version.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
