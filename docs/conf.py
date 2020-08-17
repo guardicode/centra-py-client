@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'centra-py-client'
-copyright = "2020, Yonatan Golan"
+copyright = "2020, Guardicore LTD"
 author = "Yonatan Golan"
 
 # The version info for the project you're documenting, acts as replacement

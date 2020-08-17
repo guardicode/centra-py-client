@@ -37,7 +37,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/yonatang93/centra_py_client',
+    url='https://github.com/guardicode/centra-py-client',
     version='0.1.0',
     zip_safe=False,
 )

@@ -6,8 +6,8 @@ centra-py-client
 .. image:: https://img.shields.io/pypi/v/centra_py_client.svg
         :target: https://pypi.python.org/pypi/centra_py_client
 
-.. image:: https://img.shields.io/travis/yonatang93/centra_py_client.svg
-        :target: https://travis-ci.com/yonatang93/centra_py_client
+.. image:: https://img.shields.io/travis/guardicode/centra_py_client.svg
+        :target: https://travis-ci.com/guardicode/centra_py_client
 
 .. image:: https://readthedocs.org/projects/centra-py-client/badge/?version=latest
         :target: https://centra-py-client.readthedocs.io/en/latest/?badge=latest
@@ -56,13 +56,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/yonatang93/centra_py_client
+    $ git clone git://github.com/guardicode/centra_py_client
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/yonatang93/centra_py_client/tarball/master
+    $ curl -OJL https://github.com/guardicode/centra_py_client/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -71,8 +71,8 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/yonatang93/centra_py_client
-.. _tarball: https://github.com/yonatang93/centra_py_client/tarball/master
+.. _Github repo: https://github.com/guardicode/centra_py_client
+.. _tarball: https://github.com/guardicode/centra_py_client/tarball/master
 
 
 =====
