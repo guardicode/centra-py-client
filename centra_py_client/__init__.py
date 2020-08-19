@@ -11,4 +11,3 @@ from .centra_py_client import CentraSession as CentraSession
 
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
-
