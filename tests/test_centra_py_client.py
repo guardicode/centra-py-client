@@ -7,6 +7,7 @@ import uuid
 from unittest import TestCase
 from unittest.mock import Mock, patch, call
 from callee import Contains
+from centra_py_client.exceptions import ManagementAPIError
 
 from centra_py_client.centra_py_client import CentraClient
 from centra_py_client.centra_session import CentraSession
@@ -104,3 +105,21 @@ class TestClient(TestCase):
             ],
             any_order=True
         )
+
+    @patch("centra_py_client.centra_py_client.CentraSession.connect")
+    @patch("centra_py_client.centra_py_client.CentraSession.json_query")
+    def test_is_connected_sanity(self, mock_json_query, _):
+        mock_json_query.return_value = {'total_count': 0, 'new_count': 0, 'items': []}
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        assert client.is_connected
+        mock_json_query.assert_called_once()
+
+    @patch("centra_py_client.centra_py_client.CentraSession.connect")
+    @patch("centra_py_client.centra_py_client.CentraSession.json_query")
+    def test_is_connected_not_connected(self, mock_json_query, _):
+        def raise_an_error(param1):
+            raise ManagementAPIError(f"{param1} testerror")
+        mock_json_query.side_effect = raise_an_error
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        assert not client.is_connected
+        mock_json_query.assert_called_once()

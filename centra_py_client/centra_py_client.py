@@ -1,10 +1,7 @@
-"""Main module."""
-
 import logging
-
 from typing import List
 
-
+from centra_py_client.exceptions import ManagementAPIError
 from centra_py_client.centra_session import CentraSession
 
 
@@ -75,3 +72,20 @@ class CentraClient:
         list_of_matching_label_ids = [x['id'] for x in list_of_matching_label_objects]
         self.logger.debug(f"Found {len(list_of_matching_label_ids)} matching labels")
         return list_of_matching_label_ids
+
+    def get_system_notifications(self):
+        return self.centra_session.json_query(
+            self.centra_session.urljoin_api('system-notifications')
+        )
+
+    @property
+    def is_connected(self) -> bool:
+        """
+        Use this to test for connectivity.
+        :return: True if Centra is connected and answering the API.
+        """
+        try:
+            return self.get_system_notifications() is not None
+        except ManagementAPIError as e:
+            self.logger.debug(f"Error which checking connectivity: {e}")
+            return False

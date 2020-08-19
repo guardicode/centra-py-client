@@ -1,13 +1,13 @@
-import logging
-import requests
 import datetime
 import json
-
-from requests.auth import AuthBase
-from typing import Union, Dict
+import logging
+from typing import Dict, Union
 from urllib.parse import urljoin
 
 from centra_py_client.exceptions import ManagementAPIError, ManagementAPITimeoutError, RESTAuthenticationError
+
+import requests
+from requests.auth import AuthBase
 
 MANAGEMENT_REST_API_PORT = 443
 AUTHENTICATION_ERROR_HTTP_STATUS_CODE = 403
@@ -95,16 +95,15 @@ class CentraSession:
         # todo raise exception when auth fails
         self.logger.debug("REST token obtained and set")
 
-    def json_query(
-        self,
-        uri,
-        method="GET",
-        data=None,
-        return_json=True,
-        params=None,
-        authenticate=True,
-        files=None,
-        convert_data_to_json=True) -> Union[bytes, Dict, str, None]:
+    def json_query(self,
+                   uri,
+                   method="GET",
+                   data=None,
+                   return_json=True,
+                   params=None,
+                   authenticate=True,
+                   files=None,
+                   convert_data_to_json=True) -> Union[bytes, Dict, str, None]:
         # TODO apijoin the uri
         if data is not None and convert_data_to_json:
             data = self.json_encoder.encode(data)
@@ -153,7 +152,7 @@ class CentraSession:
         if 200 != r.status_code:
             try:
                 json_obj = json.loads(r.content)
-            except:
+            except:  # noqa: E722
                 json_obj = r.content
                 if isinstance(json_obj, bytes) and b"504 Gateway Time-out" in json_obj:
                     raise ManagementAPITimeoutError(json_obj)

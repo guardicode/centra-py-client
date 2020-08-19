@@ -6,9 +6,8 @@ __version__ = '0.1.0'
 
 import logging
 
-from .centra_py_client import CentraClient as CentraClient
-from .centra_py_client import CentraSession as CentraSession
+from .centra_py_client import CentraClient as CentraClient  # noqa: F401
+from .centra_py_client import CentraSession as CentraSession  # noqa: F401
 
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
-
