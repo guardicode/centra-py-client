@@ -75,3 +75,16 @@ class CentraClient:
         list_of_matching_label_ids = [x['id'] for x in list_of_matching_label_objects]
         self.logger.debug(f"Found {len(list_of_matching_label_ids)} matching labels")
         return list_of_matching_label_ids
+
+    def get_system_notifications(self):
+        return self.centra_session.json_query(
+            self.centra_session.urljoin_api('system-notifications')
+        )
+
+    @property
+    def is_connected(self) -> bool:
+        """
+        Use this to test for connectivity.
+        :return: True if Centra is connected and answering the API.
+        """
+        return self.get_system_notifications() is not None

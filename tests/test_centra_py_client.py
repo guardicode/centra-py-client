@@ -104,3 +104,11 @@ class TestClient(TestCase):
             ],
             any_order=True
         )
+
+    @patch("centra_py_client.centra_py_client.CentraSession.connect")
+    @patch("centra_py_client.centra_py_client.CentraSession.json_query")
+    def test_is_connected(self, mock_json_query, _):
+        mock_json_query.return_value = {'total_count': 0, 'new_count': 0, 'items': []}
+        client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
+        assert client.is_connected
+        mock_json_query.assert_called_once()
