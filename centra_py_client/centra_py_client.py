@@ -1,6 +1,7 @@
 import logging
 from typing import List
 
+from centra_py_client.exceptions import ManagementAPIError
 from centra_py_client.centra_session import CentraSession
 
 
@@ -83,4 +84,8 @@ class CentraClient:
         Use this to test for connectivity.
         :return: True if Centra is connected and answering the API.
         """
-        return self.get_system_notifications() is not None
+        try:
+            return self.get_system_notifications() is not None
+        except ManagementAPIError as e:
+            self.logger.debug(f"Error which checking connectivity: {e}")
+            return False
