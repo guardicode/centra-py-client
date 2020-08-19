@@ -11,7 +11,7 @@ install:
 
 script:
 # lint
-- flake8 centra_py_client tests
+- flake8 centra_py_client
 # test
 - tox
 - pytest -v

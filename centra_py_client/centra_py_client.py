@@ -1,9 +1,5 @@
-"""Main module."""
-
 import logging
-
 from typing import List
-
 
 from centra_py_client.centra_session import CentraSession
 
