@@ -17,7 +17,7 @@ script:
   - pytest -v
 
 before_deploy:
-  - bump2version minor
+  - bump2version --verbose minor
 deploy:
   provider: pypi
   username: "__token__"
@@ -27,3 +27,9 @@ deploy:
   on:
     branch: main
   skip_existing: true
+after_deploy:
+  - git log -n 4
+  - git status
+  - git diff HEAD HEAD~1
+  - git push origin main
+  - git push --tags
