@@ -6,7 +6,7 @@ centra-py-client
 .. image:: https://img.shields.io/pypi/v/centra_py_client.svg
         :target: https://pypi.python.org/pypi/centra_py_client
 
-.. image:: https://img.shields.io/travis/guardicode/centra_py_client.svg
+.. image:: https://img.shields.io/travis/guardicode/centra-py-client.svg
         :target: https://travis-ci.com/guardicode/centra_py_client
 
 .. image:: https://readthedocs.org/projects/centra-py-client/badge/?version=latest
@@ -62,7 +62,7 @@ Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/guardicode/centra_py_client/tarball/master
+    $ curl -OJL https://github.com/guardicode/centra_py_client/tarball/main
 
 Once you have a copy of the source, you can install it with:
 
@@ -72,7 +72,7 @@ Once you have a copy of the source, you can install it with:
 
 
 .. _Github repo: https://github.com/guardicode/centra_py_client
-.. _tarball: https://github.com/guardicode/centra_py_client/tarball/master
+.. _tarball: https://github.com/guardicode/centra_py_client/tarball/main
 
 
 =====
