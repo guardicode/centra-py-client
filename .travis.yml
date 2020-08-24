@@ -2,6 +2,7 @@ language: python
 
 env:
   global:
+    # Github access token
     secure: "kU2A450zpKsF6lnmZcakvL7k1OWVhJyh9/1aHmIT+Npu7Nt6sdukkw0KCcxYkJbC1Ap0+l1lK7FMGVwgdXauiR5ibxTs0cw1QtU9Sbx1xxHKpNdXFy+LSYbJGppdClEJ7eZh+FUdYbCkRCTLuaCvUoOO/I6AuOq79ewplpGIwqhTUZmVvEBj1Ri8aab99TLk/AnzrJEMG6XKbpneyl1VfmhDu3qImWGRvm66R/2pWVvvVC37GJdeWcx64NZLoRSUzkMahujUnGh/XK7uqJgItP9Juz9lS6fYHX47sk2Y9nOyythpUe+Eyg+7YwQTOPAi3NGNsJ8O3+qfgZCnXB0b0JZXlkjKFX0tgOLHawOFlEI9Ll26IYrIFnx0R1WZftrqHmxIe6oP6eWVlVR0BHGM46GBDLv03gBeWRl6yjBY6qtDKTJNx7dmwvRTLtS6V0bTt53gA9da+jusDwcYFtwMwhYHG/heiQPbiwy4wFRzOU+LJ35YUY8VOePz8i8CRB/vryefVIzntkGKmw1uKkzEwSgSIt5pszh5FmjPV1AuLBVmqgxSulm0ZlMWpVRWEM9YBDmf+T8TD5JkAUhv/vxHmRJrmXj4m1PX13uI93HOLoV2gAi8/OC+FGDcMai8Q6kREKvSHXI6hYXLT+2wfGL5XJ5ng8LCqGV6NCOBmF1oQZU="
 
 python:
@@ -21,6 +22,7 @@ script:
   - pytest -v
 
 before_deploy:
+  - git checkout main  # travis is on detached head
   - bump2version --verbose minor
 deploy:
   provider: pypi
@@ -32,7 +34,7 @@ deploy:
     branch: main
   skip_existing: true
 after_deploy:
-  - git log -n 4
+  - git log -n 3 --decorate
   - git status
   - git diff HEAD HEAD~1
   - git push origin main
