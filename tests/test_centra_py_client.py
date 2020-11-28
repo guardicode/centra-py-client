@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 """Tests for `centra_py_client` package."""
-import pytest
 import uuid
 
 from unittest import TestCase
-from unittest.mock import Mock, patch, call
+from unittest.mock import patch, call
 from callee import Contains
-from centra_py_client.exceptions import ManagementAPIError
+from centra_py_client.exceptions.session import CentraAPIBaseError
 
 from centra_py_client.centra_py_client import CentraClient
 from centra_py_client.centra_session import CentraSession
@@ -118,7 +117,7 @@ class TestClient(TestCase):
     @patch("centra_py_client.centra_py_client.CentraSession.json_query")
     def test_is_connected_not_connected(self, mock_json_query, _):
         def raise_an_error(param1):
-            raise ManagementAPIError(f"{param1} testerror")
+            raise CentraAPIBaseError(f"{param1} testerror")
         mock_json_query.side_effect = raise_an_error
         client = CentraClient(CentraSession("fakeaddr", "fakeuser", "fakepassword"))
         assert not client.is_connected
