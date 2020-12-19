@@ -6,7 +6,7 @@ from functools import wraps
 from urllib.parse import urljoin
 from typing import Dict, Union, Callable, Generator
 
-from centra_py_client.exceptions.session import CentraAPIError, CentraAPIRequestTimeout, CentraAuthError, \
+from centra_py_client.exceptions.centra_session import CentraAPIError, CentraAPIRequestTimeout, CentraAuthError, \
     BadAPIRequest, CentraAPIBaseError, NoPermissionToAccessResource, RedirectionRequiredError
 
 MANAGEMENT_REST_API_PORT = 443
@@ -319,6 +319,7 @@ class CentraSession:
                  endpoint: str,
                  method: str,
                  objects_per_page: int = None,
+                 stop_after: int = None,
                  params: Dict[str, str] = None,
                  yield_objects: bool = True) -> Generator:
         """
@@ -328,6 +329,7 @@ class CentraSession:
         :param params: HTTP request query parameters
         :param objects_per_page: Limit the number of objects per page. If omitted, Centra will use the default page
         size according to the requested endpoint
+        :param stop_after: Stop after fetching this amount of objects.
         :param yield_objects: If True, only the response objects (and not the entire response) will be yielded
         """
         if not params:
@@ -336,12 +338,18 @@ class CentraSession:
             params["limit"] = objects_per_page
 
         first_res = self.query(endpoint, method, params=params)
+        total_count = first_res["total_count"]
+        if not stop_after:
+            stop_after = total_count
+
+        if first_res["to"] > stop_after:
+            first_res["objects"] = first_res["objects"][:stop_after]
+
         if yield_objects:
             yield first_res["objects"]
         else:
             yield first_res
 
-        total_count = first_res["total_count"]
         per_page = first_res["results_in_page"]
         num_pages = math.ceil(total_count / per_page)
 
@@ -350,10 +358,16 @@ class CentraSession:
         for _ in range(2, num_pages + 1):
             next_res = self.query(endpoint, method, params={"offset": offset, "limit": per_page, **params})
             offset = next_res["to"]
+            if offset > stop_after:
+                amount_of_objects_to_get_from_last_page = per_page - (offset - stop_after)
+                first_res["objects"] = first_res["objects"][:amount_of_objects_to_get_from_last_page]
             if yield_objects:
                 yield next_res["objects"]
             else:
                 yield next_res
+
+            if offset > stop_after:
+                break
 
     def set_base_api_path(self, base_api_path: str) -> None:
         """
